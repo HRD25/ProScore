@@ -13,8 +13,8 @@
 .idea/**/shelf
 
 # Env
-env.local
-env.test
+.env.local
+.env.test
 
 # AWS User-specific
 .idea/**/aws.xml
