@@ -1,0 +1,33 @@
+<script>
+
+    const FILE_INPUT = (fileId) => {
+        return `<input type="hidden" name="image" class="image_input" value="`+fileId+`" >`;
+    }
+
+    $(document).on('change', '.file_input', function (){
+        let imageBlock = $(this).data('image');
+        const url = "/admin/file/create";
+        let file = $(this)[0].files[0];
+        let formData = new FormData();
+        let ajax = new XMLHttpRequest();
+
+        formData.append('file', file);
+        ajax.open('POST', url, true);
+        ajax.send(formData);
+        ajax.responseType = 'json';
+        ajax.onload = function (e){
+
+            if(typeof this.response.type != 'danger'){
+                $('.image_'+imageBlock).show();
+                $('.image_img_'+imageBlock).show();
+                $('.image_img_'+imageBlock).prop('src', this.response.path);
+                $('.image_input').remove();
+                $('form').append(FILE_INPUT(this.response.id));
+            }else{
+                $('.image_'+imageBlock).hidden();
+                $('.image_input').remove();
+                $('.image_img_'+imageBlock).hidden();
+            }
+        };
+    });
+</script>

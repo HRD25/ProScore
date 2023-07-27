@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        {% include 'front/layout/include/head.twig' %}
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+
+        {% block javascripts %}
+            {% include 'front/layout/include/scripts.twig' %}
+        {% endblock %}
+    </body>
+</html>

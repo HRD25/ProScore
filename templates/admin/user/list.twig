@@ -1,0 +1,56 @@
+{% extends '/admin/layout/layout.twig' %}
+
+{% block cardHeader %}
+    {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
+        links: links|default([])
+    } %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <table id="myTable" class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>Imię i Nazwisko</th>
+                <th>Wiek</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Tom Kowalski</td>
+                <td>18 lat</td>
+                <td>
+                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Usuń"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Edytuj"><i class="fa-solid fa-pen"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Ania Nowak</td>
+                <td>21 lat</td>
+                <td>
+                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Usuń"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Edytuj"><i class="fa-solid fa-pen"></i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block cardFooter %}
+    {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
+        links: links|default([])
+    } %}
+{% endblock %}
+
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+         $(document).ready( function () {
+             $('#myTable').DataTable();
+             $('[data-toggle="tooltip"]').tooltip()
+         } );
+     </script>
+ {% endblock %}

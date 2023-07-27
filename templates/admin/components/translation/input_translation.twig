@@ -1,0 +1,93 @@
+
+{% set modalToken = generate_token() %}
+{#{{ dump() }}#}
+
+<div class="mb-3 row">
+    <label for="" class="col-sm-2 col-form-label">{{ config.label|default('') }}</label>
+    <div class="col-sm-10">
+        <button type="button" class="btn btn-secondary" data-token="{{ modalToken }}" data-bs-toggle="modal" data-bs-target="#translation_{{ modalToken }}">
+            Zarządzaj
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" id="translation_{{ modalToken }}">
+    <div class="modal-dialog">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ config.label|default('') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                {% for locale in CONST_LANGUAGES|default([]) %}
+                    {% if
+                        entity is not null and
+                        entity is not empty and
+                        config.htmlName|default('')
+                    %}
+
+                        {% set entityName = 'translations['~ locale.tld ~']' %}
+                        {% set entityParams = attribute(entity, locale.tld) %}
+                        {% set iterableHtmlName = '' %}
+                        {% set firstIterableHtmlName = '' %}
+
+                        {% if config.htmlName is iterable %}
+                            {% for Celemet in config.htmlName %}
+                                {% if loop.first %}
+                                    {% set firstIterableHtmlName = Celemet %}
+                                {% else %}
+                                    {% set iterableHtmlName = Celemet %}
+                                {% endif %}
+                            {% endfor %}
+                            {% set value = attribute(entityParams, firstIterableHtmlName) %}
+                            {% set value = attribute(value, iterableHtmlName) %}
+                        {% else %}
+                            {% set value =  attribute(entityParams, config.htmlName) %}
+                        {% endif %}
+
+
+
+                        {% if config.entityName is iterable %}
+                            {% for element in config.entityName %}
+                                {% set entityName = entityName ~ '[' ~ element ~ ']' %}
+                            {% endfor %}
+                        {% else %}
+                            {% set entityName = entityName ~ '[' ~ config.entityName ~ ']' %}
+                        {% endif %}
+
+                    {% else %}
+                        {% set value = '' %}
+                        {% set entityName = 'translations['~ locale.tld ~']' %}
+
+                        {% if config.entityName is iterable %}
+                            {% for element in config.entityName %}
+                                {% set entityName = entityName ~ '[' ~ element ~ ']' %}
+                            {% endfor %}
+                            {% else %}
+                                {% set entityName = entityName ~ '[' ~ config.entityName ~ ']' %}
+                        {% endif %}
+
+                    {% endif %}
+
+                    <div class="row">
+                        <label for="" class="col-sm-3 col-form-label">{{ locale.name }}</label>
+                        <div class="mb-3 col-sm-9">
+                            {% if inputType|default('') == 'text' %}
+{#                            <input type="text" class="form-control" name="translations[{{ locale.tld }}][{{ config.htmlName|default('') }}]" value="{{ value|default('') }}">#}
+                            <input type="text" class="form-control" name="{{ entityName }}" value="{{ value|default('') }}">
+                            {% elseif inputType|default('') == 'textarea' %}
+                                <textarea name="{{ entityName }}" class="form-control">{{ value|default('') }}</textarea>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Zapisz</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+      {% include 'admin/layout/include/head.twig' %}
+    </head>
+
+    <body>
+        {% if app.request.get('_route') != 'admin_login' %}
+           {% include "/admin/layout/include/navbar.twig" %}
+        {% endif %}
+        
+        <main {% if app.request.get('_route') == 'admin_login' %} style="left: 0px; width: 100% !important;" {% endif %}>
+
+            {% if app.request.get('_route') != 'admin_login' %}
+
+                <div class="card {% if app.user.themeColor|default('white') == 'dark' %} dark {% endif %} h-100" style="border: none;">
+                    <div class="card-header breadcrumb_navbar">
+                        <div class="container h-100">
+                            {% block cardHeader %}{% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="container h-100">
+                            <div class="alert  alert-dismissible fade show" role="alert" style="display: none">
+                                <div class="alert_message"></div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="card h-100">
+                                <div class="card-body h-100">
+            {% endif %}
+
+            {% block content %}{% endblock %}
+
+            {% if app.request.get('_route') != 'admin_login' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer breadcrumb_navbar">
+                        <div class="container h-100">
+                            {% block cardFooter %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </main>
+
+        {% block modals %}{% endblock %}
+
+        {% block javascripts %}{% endblock %}
+
+        {% if app.request.get('_route') != 'admin_login' %}
+            <footer>
+                {% include "/admin/layout/include/footer.twig" %}
+            </footer>
+        {% endif %}
+    </body>
+</html>

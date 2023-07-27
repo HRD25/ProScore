@@ -1,0 +1,21 @@
+<div class="modal fade" id="{{ modalId|default('') }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog {{ modalClass|default('') }}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ modalTitle|default('') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ modalBody|default('')|raw }}
+
+                {% if modalType|default('') == 'modalLanguages' %}
+                    {% include 'admin/elements/modal/body/languages.twig' %}
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ closeButton|default('Anuluj') }}</button>
+                <button type="button" class="btn btn-primary">{{ acceptButton|default('Akceptuję') }}</button>
+            </div>
+        </div>
+    </div>
+</div>

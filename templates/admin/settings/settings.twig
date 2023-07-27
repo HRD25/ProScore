@@ -1,0 +1,115 @@
+{% extends '/admin/layout/layout.twig' %}
+
+{% block cardHeader %}
+    {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
+        links: links|default([])
+    } %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% include 'admin/elements/alert/alert_box.twig' %}
+
+        <div class="col-sm-12 mt-3">
+            <div class="card">
+                <div class="card-header bg-dark text-white">Motyw</div>
+                <div class="card-body">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="darkMode" {% if app.user.themeColor|default('') == 'dark'  %} checked {% endif %}>
+                        <label class="form-check-label" for="darkMode">Ciemny motyw</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 mt-3">
+            <div class="card">
+                <div class="card-header bg-dark text-white">Zmień hasło</div>
+                <div class="card-body">
+                    <form method="POST" class="change_password_form">
+                        <div class="d-lg-flex box_inputs_change_password input-group d-md-flex mb-3">
+                            <input type="text" class="form-control col col-sm-12 col-lg-6" name="password" placeholder="Hasło" required>
+                            <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
+                            <input type="text" class="form-control col col-sm-12 col-lg-6" name="repeat_password" placeholder="Powtórz hasło" required>
+                            <button type="submit" class="btn btn-primary">Zmień</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block cardFooter %}
+    {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
+        links: links|default([])
+    } %}
+{% endblock %}
+
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+
+         function alert(alertClass, alertMessage)
+         {
+            $('.alert').removeClass('alert-success alert-danger');
+            $('.alert').addClass(alertClass);
+            $('.alert_message').html(alertMessage);
+            $('.alert').show();
+
+            setTimeout(function (){
+                window.location.reload();
+            }, 800);
+
+         }
+
+         function checkPasswordIsSame(password1, password2)
+         {
+             if(password1 === password2){
+                 return true;
+             }
+             return false;
+         }
+
+         // Function - Change password
+         $('.change_password_form').submit(function (e){
+             e.preventDefault();
+             $.ajax({
+                 url: `{{ path('admin_settings_change_password') }}`,
+                 method: "POST",
+                 data: {
+                     password: $("input[name='password']").val(),
+                     repeat_password: $("input[name='repeat_password']").val(),
+                 },
+                 success: function (response){
+                    $('.alert_box').html(response);
+                    setTimeout(() => {
+                        location.reload();
+                     }, 1000)
+                 }
+             });
+         })
+
+         // Function - Change color theme
+         $(document).on('change', '#darkMode', function (){
+             let value = $(this).prop('checked');
+             let colorTheme = '';
+
+             if(value)
+             {
+                 colorTheme = 'dark';
+                 $('.card').addClass('dark');
+             }else{
+                 colorTheme = 'white';
+                 $('.card').removeClass('dark');
+             }
+
+             $.ajax({
+                 url: '/admin/settings/change/theme/color',
+                 data: {themeColor: colorTheme},
+                 method: 'PATCH',
+                 success: function (response){}
+             });
+         });
+     </script>
+ {% endblock %}

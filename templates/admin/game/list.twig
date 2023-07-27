@@ -1,0 +1,25 @@
+{% extends '/admin/layout/layout.twig' %}
+
+{% block cardHeader %}
+    {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
+        links: links|default([])
+    } %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+    </div>
+{% endblock %}
+
+{% block cardFooter %}
+    {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
+        links: links|default([])
+    } %}
+{% endblock %}
+
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+     </script>
+ {% endblock %}

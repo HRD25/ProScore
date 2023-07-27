@@ -1,0 +1,111 @@
+
+{% set navbarItems = [
+    {
+        TITLE: 'Zawodnicy',
+        DESCRIPTION: 'Zarządzanie',
+        ITEMS: [
+        {
+            TEXT: 'Lista',
+            ACTIVE_ROUTES: ['admin_user_list'],
+            ICONE: '<i class="fa-solid fa-gear"></i>',
+            ROUTE: 'admin_user_list'
+        },
+    ]
+    },
+    {
+        TITLE: 'Mecze',
+        DESCRIPTION: 'Zarządzanie',
+        ITEMS: [
+        {
+            TEXT: 'Lista',
+            ACTIVE_ROUTES: ['admin_game_list'],
+            ICONE: '<i class="fa-solid fa-gear"></i>',
+            ROUTE: 'admin_game_list'
+        },
+    ]
+    }
+]
+%}
+
+{% set staticItems = [
+    {
+        TITLE: '',
+        DESCRIPTION: '',
+        ITEMS:[
+        {
+            TEXT: '',
+            ACTIVE_ROUTES: ['admin_main'],
+            ICONE: '<i class="fa-solid fa-house"></i>',
+            ROUTE: 'admin_main'
+        },
+        {
+            TEXT: '',
+            ACTIVE_ROUTES: ['front_page'],
+            ICONE: '<i class="fa-solid fa-house-user"></i>',
+            ROUTE: 'front_page'
+        },
+        {
+            TEXT: '',
+            ACTIVE_ROUTES: ['admin_settings'],
+            ICONE: '<i class="fa-solid fa-gear"></i>',
+            ROUTE: 'admin_settings'
+        }
+        ]
+    }
+]
+%}
+
+<div class="sidebar active">
+   <div class="logo_content">
+        <div class="logo">
+            <div class="logo_name">{{ PROJECT_NAME }} | Admin</div>
+        </div>
+    </div>
+{#    <hr>#}
+    <i class="fa-solid fa-bars" id="btn_menu"></i>
+    <ul class="nav_list">
+
+        <li class="home_link">
+            {% for navbarItem in staticItems|default([]) %}
+                {% for item in navbarItem.ITEMS|default([]) %}
+                    <div>
+                        <a href="{{ path(item.ROUTE|default()) }}" class="{% if app.request.get('_route') in item.ACTIVE_ROUTES|default([]) %}active{% endif %}">
+                            {{ item.ICONE|raw }}
+                            <span class="links_name">{{ item.TEXT|default() }}</span>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </li>
+
+        {% for navbarItem in navbarItems|default([]) %}
+
+            <div class="navbar_header_box">
+                <p class="headerNavbarTitle">{{ navbarItem.TITLE|default() }}</p>
+                <small class="headerNavbarDescription">{{ navbarItem.DESCRIPTION|default() }}</small>
+            </div>
+
+            {% for item in navbarItem.ITEMS|default([]) %}
+                <li>
+                    <a href="{{ path(item.ROUTE|default()) }}" class="{% if app.request.get('_route') in item.ACTIVE_ROUTES|default([]) %}active{% endif %}">
+                        {{ item.ICONE|raw }}
+                        <span class="links_name">{{ item.TEXT|default() }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+    <div class="profile_content">
+        <div class="profile">
+            <div class="profile_details">
+                {# <img src="" alt> #}
+                <div class="name_job">
+                    <div class="name">{{ PROJECT_NAME }}</div>
+                    <div class="job">Admin Dashboard</div>
+                </div>
+            </div>
+            <a href="{{ path('admin_logout') }}" class="link_logout"><i class="fa-solid fa-arrow-right-from-bracket" id="logout_menu"></i></a>
+        </div>
+    </div>
+</div>
