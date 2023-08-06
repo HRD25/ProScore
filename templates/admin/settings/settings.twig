@@ -2,7 +2,7 @@
 
 {% block cardHeader %}
     {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
-        links: links|default([])
+        breadCrumbs: breadCrumbs|default([])
     } %}
 {% endblock %}
 
@@ -42,7 +42,7 @@
 
 {% block cardFooter %}
     {% include 'admin/elements/breadCrumb/breadCrumb.twig' with {
-        links: links|default([])
+        breadCrumbs: breadCrumbs|default([])
     } %}
 {% endblock %}
 
