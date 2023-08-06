@@ -12,7 +12,7 @@ class PageParamsService implements PageParamsServiceInterface
         $response = [];
         $params = $request->request->all();
         foreach ($params as $key => $param){
-            $defaultResponse[$key] = $param;
+            $response[$key] = $param;
         }
 
         return $response;
@@ -24,6 +24,7 @@ class PageParamsService implements PageParamsServiceInterface
         $defaultResponse = [
             'title' => PageParams::TITLE[$routeName] ?? '-',
             'description' => PageParams::DESCRIPTION[$routeName] ?? '-',
+            'breadCrumbs' => PageParams::BREAD_CRUMB[$routeName] ?? []
         ];
         foreach ($params as $key => $param){
             $defaultResponse[$key] = $param;
