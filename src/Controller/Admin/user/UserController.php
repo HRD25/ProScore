@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\admin\user;
+namespace App\Controller\Admin\User;
 
 use App\Service\PageParamsServiceInterface;
 use App\Service\User\UserServiceInterface;

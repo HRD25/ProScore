@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\admin\security;
+namespace App\Controller\Admin\Security;
 
 use App\Config\admin\RouteSchema;
 use App\Exception\PasswordNotSame;

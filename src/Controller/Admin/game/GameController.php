@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\admin\game;
+namespace App\Controller\Admin\Game;
 
 use App\Service\PageParamsServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

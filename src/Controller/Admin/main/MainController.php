@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\admin\main;
+namespace App\Controller\Admin\Main;
 
 use App\Service\PageParamsServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
