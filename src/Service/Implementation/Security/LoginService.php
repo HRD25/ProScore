@@ -2,7 +2,7 @@
 
 namespace App\Service\Implementation\Security;
 
-use App\Config\admin\RouteSchema;
+use App\Config\Admin\RouteSchema;
 use App\Entity\User\User;
 use App\Exception\PasswordNotSame;
 use App\Exception\UserDoesNotExist;

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Security;
 
-use App\Config\admin\RouteSchema;
+use App\Config\Admin\RouteSchema;
 use App\Exception\PasswordNotSame;
 use App\Exception\UserDoesNotExist;
 use App\Service\PageParamsServiceInterface;

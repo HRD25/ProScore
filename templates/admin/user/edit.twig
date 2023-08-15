@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block content %}
-
+    {% include 'admin/user/include/content.twig' with {
+        method: 'edit'
+    } %}
 {% endblock %}
 
 {% block cardFooter %}

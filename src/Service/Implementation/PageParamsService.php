@@ -2,7 +2,7 @@
 
 namespace App\Service\Implementation;
 
-use App\Config\admin\PageParams;
+use App\Config\Admin\PageParams;
 use App\Service\PageParamsServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 

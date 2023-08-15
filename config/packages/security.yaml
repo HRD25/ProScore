@@ -18,10 +18,12 @@ security:
             lazy: true
             pattern: '^/admin'
             provider: app_admin_provider
+            remember_me:
+                secret: '%kernel.secret%' # required
+                lifetime: 604800 # 1 week in seconds
             logout:
                 path: admin_logout
                 target: admin_login
-#            access_denied_handler: App\Security\AccessDeniedHandler
         user:
             lazy: true
             pattern: '^/'

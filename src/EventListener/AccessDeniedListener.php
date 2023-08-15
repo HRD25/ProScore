@@ -2,7 +2,7 @@
 
 namespace App\EventListener;
 
-use App\Config\admin\RouteSchema;
+use App\Config\Admin\RouteSchema;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

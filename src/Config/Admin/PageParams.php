@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Config\admin;
+namespace App\Config\Admin;
 
 class PageParams
 {
@@ -38,6 +38,20 @@ class PageParams
             [
                 'route' => RouteSchema::USER_LIST,
                 'name' => self::TITLE[RouteSchema::USER_LIST]
+            ],
+        ],
+        RouteSchema::USER_EDIT => [
+            self::DEFAULT_BREAD_CRUMB,
+            [
+                'route' => RouteSchema::USER_EDIT,
+                'name' => self::TITLE[RouteSchema::USER_EDIT]
+            ],
+        ],
+        RouteSchema::USER_CREATE => [
+            self::DEFAULT_BREAD_CRUMB,
+            [
+                'route' => RouteSchema::USER_CREATE,
+                'name' => self::TITLE[RouteSchema::USER_CREATE]
             ],
         ],
         RouteSchema::GAME_LIST =>[

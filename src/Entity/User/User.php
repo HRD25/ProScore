@@ -13,20 +13,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use idTrait;
 
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $surName = null;
-
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\Column]
-    private ?string $password = null;
+    public function __construct(
+        #[ORM\Column(length: 180, unique: true)]
+        private ?string $email = null,
+
+        #[ORM\Column(length: 255)]
+        private ?string $firstName = null,
+
+        #[ORM\Column(length: 255)]
+        private ?string $surName = null,
+
+        #[ORM\Column]
+        private ?string $password = null
+    ){}
 
     public function getEmail(): ?string
     {
@@ -40,23 +42,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -69,9 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -84,9 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
