@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Settings;
 
-use App\Config\admin\RouteSchema;
+use App\Config\Admin\RouteSchema;
 use App\Exception\PasswordNotSame;
 use App\Service\PageParamsServiceInterface;
 use App\Service\PageViewServiceInterface;

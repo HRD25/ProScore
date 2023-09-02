@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Config\admin;
+namespace App\Config\Admin;
 
 class RouteSchema
 {
