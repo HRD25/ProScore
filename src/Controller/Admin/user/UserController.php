@@ -38,7 +38,6 @@ class UserController extends AbstractController
             }
         }
 
-
         return $this->render(self::EDIT, $this->pageParamsService->createViewParamsAdmin($request));
     }
 

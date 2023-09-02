@@ -1,0 +1,6 @@
+<div class="mb-3 row">
+    <label for="{{ id|default('') }}" class="col-sm-2 col-form-label">{{ label|default('') }}</label>
+    <div class="col-sm-10">
+        <input type="{{ type|default('') }}" class="form-control {{ class|default('') }}" id="{{ id|default('') }}" value="{{ value|default('') }}" {% if readOnly|default(false) %} readonly {% endif %} {% if required|default(false) %} required {% endif %}>
+    </div>
+</div>
