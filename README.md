@@ -1,5 +1,5 @@
 ## General info
-ProScore Aplication
+ProScore Application
 
 ## Table of contents
 * [General info](#general-info)
