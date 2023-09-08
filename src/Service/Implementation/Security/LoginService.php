@@ -35,7 +35,7 @@ class LoginService extends AbstractController implements LoginServiceInterface
         $event = new InteractiveLoginEvent($request, $token);
         $this->eventDispatcher->dispatch($event);
 
-        return new RedirectResponse($this->generateUrl(RouteSchema::AFTER_LOGIN));
+        return new RedirectResponse($this->generateUrl('admin_main'));
     }
 
     private function checkUserIsExists($user): void

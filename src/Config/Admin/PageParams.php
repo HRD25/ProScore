@@ -2,71 +2,43 @@
 
 namespace App\Config\Admin;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class PageParams
 {
-    private const DEFAULT_BREAD_CRUMB = [
-        'route' => RouteSchema::MAIN,
-        'name' => self::TITLE[RouteSchema::MAIN]
-    ];
-
-    private const USER_TITLE = 'Użytkownik';
-    private const USER_DESCRIPTION = 'Użytkownik';
-
     public const TITLE = [
-        RouteSchema::LOGIN => 'Login',
-        RouteSchema::MAIN => 'Main',
-        RouteSchema::USER_LIST => self::USER_TITLE,
-        RouteSchema::USER_EDIT => self::USER_TITLE,
-        RouteSchema::USER_CREATE => self::USER_TITLE,
-        RouteSchema::GAME_LIST => 'Mecze',
-        RouteSchema::SETTINGS => 'Ustawienia',
+        'user' => [
+            'list' => 'Użytkownik Lista',
+            'create' => 'Użytkownik Dodaj',
+            'edit' => 'Użytkownik Edytuj',
+        ]
     ];
 
     public const DESCRIPTION = [
-        RouteSchema::LOGIN => 'Zaloguj się do panelu admina.',
-        RouteSchema::MAIN => 'Witamy w aplikacji.',
-        RouteSchema::USER_LIST => self::USER_DESCRIPTION,
-        RouteSchema::USER_EDIT => self::USER_DESCRIPTION,
-        RouteSchema::USER_CREATE => self::USER_DESCRIPTION,
-        RouteSchema::GAME_LIST => 'Mecze',
-        RouteSchema::SETTINGS => 'Ustawienia',
+        'user' => [
+            'list' => 'Użytkownik Lista',
+            'create' => 'Użytkownik Dodaj',
+            'edit' => 'Użytkownik Edytuj',
+        ]
     ];
 
-    public const BREAD_CRUMB = [
-        RouteSchema::USER_LIST => [
-            self::DEFAULT_BREAD_CRUMB,
-            [
-                'route' => RouteSchema::USER_LIST,
-                'name' => self::TITLE[RouteSchema::USER_LIST]
-            ],
-        ],
-        RouteSchema::USER_EDIT => [
-            self::DEFAULT_BREAD_CRUMB,
-            [
-                'route' => RouteSchema::USER_EDIT,
-                'name' => self::TITLE[RouteSchema::USER_EDIT]
-            ],
-        ],
-        RouteSchema::USER_CREATE => [
-            self::DEFAULT_BREAD_CRUMB,
-            [
-                'route' => RouteSchema::USER_CREATE,
-                'name' => self::TITLE[RouteSchema::USER_CREATE]
-            ],
-        ],
-        RouteSchema::GAME_LIST =>[
-            self::DEFAULT_BREAD_CRUMB,
-            [
-                'route' => RouteSchema::GAME_LIST,
-                'name' => self::TITLE[RouteSchema::GAME_LIST]
-            ],
-        ],
-        RouteSchema::SETTINGS =>[
-            self::DEFAULT_BREAD_CRUMB,
-            [
-                'route' => RouteSchema::SETTINGS,
-                'name' => self::TITLE[RouteSchema::SETTINGS]
-            ],
-        ],
-    ];
+    public static function getDataFromKeys(array $keys, Request $request): Request
+    {
+        foreach ($keys as $keyArray){
+            if(key_exists($keyArray, self::TITLE)){
+                $response = self::TITLE[$keyArray];
+                if(key_exists($keyArray, $response)){
+                    $request->request->set('title', $response[$keyArray]);
+                }
+            }
+            if(key_exists($keyArray, self::DESCRIPTION)){
+                $response = self::DESCRIPTION[$keyArray];
+                if(key_exists($keyArray, $response)){
+                    $request->request->set('description', $response[$keyArray]);
+                }
+            }
+        }
+
+        return $request;
+    }
 }

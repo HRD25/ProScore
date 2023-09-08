@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin\User;
 
+use App\Config\Admin\PageParams;
 use App\Service\PageParamsServiceInterface;
 use App\Service\User\UserServiceInterface;
 use PharIo\Manifest\Exception;
@@ -24,7 +25,7 @@ class UserController extends AbstractController
 
     #[Route('list', name: '_list', methods: ['GET'])]
     public function list(Request $request): Response{
-        return $this->render(self::LIST, $this->pageParamsService->createViewParamsAdmin($request));
+        return $this->render(self::LIST, $this->pageParamsService->createViewParamsAdmin(PageParams::getDataFromKeys(['user', 'list'], $request)));
     }
 
     #[Route('edit', name: '_edit', methods: ['GET', 'POST'])]

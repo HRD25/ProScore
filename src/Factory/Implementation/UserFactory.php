@@ -10,12 +10,10 @@ class UserFactory implements UserFactoryInterface
 {
     public function create(Request $request): User
     {
-        $user = new User(
+        return new User(
             $request->get('email', null),
             $request->get('firstName', null),
             $request->get('surName', null),
         );
-
-        return ;
     }
 }

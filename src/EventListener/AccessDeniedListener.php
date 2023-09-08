@@ -25,7 +25,7 @@ class AccessDeniedListener extends AbstractController implements EventSubscriber
         if (!$exception instanceof AccessDeniedException) {
             return;
         }
-        $redirectUrl = $this->generateUrl(RouteSchema::LOGIN);
+        $redirectUrl = $this->generateUrl('admin_login');
         $event->setResponse(new RedirectResponse($redirectUrl));
     }
 }
