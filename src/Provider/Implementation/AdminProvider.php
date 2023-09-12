@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Provider\admin;
+namespace App\Provider\Implementation;
 
 use App\Entity\User\Admin;
 use App\Provider\AdminProviderInterface;
