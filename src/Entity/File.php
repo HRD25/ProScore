@@ -2,80 +2,42 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\idTrait;
+use App\Entity\Traits\timesTrait;
 use App\Entity\User\User;
 use App\Repository\FileRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FileRepository::class)]
 class File
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $extension = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updateAt = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $safeName = null;
+   use idTrait;
+   use timesTrait;
 
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: User::class)]
     private Collection $users;
 
-    public function __construct()
-    {
+    public function __construct(
+        #[ORM\Column(length: 255, nullable: true)]
+        private ?string $safeName = null,
+
+        #[ORM\Column(length: 255, nullable: true)]
+        private ?string $originalName = null,
+
+        #[ORM\Column(length: 255, nullable: true)]
+        private ?string $extension = null
+    ){
         $this->users = new ArrayCollection();
+        $this->createdAt = new DateTime();
+        $this->updateAt = new DateTime();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getExtension(): ?string
-    {
-        return $this->extension;
-    }
-
-    public function setExtension(?string $extension): static
-    {
-        $this->extension = $extension;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?\DateTimeInterface $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->updateAt;
-    }
-
-    public function setUpdateAt(?\DateTimeInterface $updateAt): static
-    {
-        $this->updateAt = $updateAt;
-
-        return $this;
     }
 
     public function getSafeName(): ?string
@@ -86,6 +48,31 @@ class File
     public function setSafeName(?string $safeName): static
     {
         $this->safeName = $safeName;
+
+        return $this;
+    }
+
+    public function getOriginalName(): ?string
+    {
+        return $this->originalName;
+    }
+
+    public function setOriginalName(?string $originalName): self
+    {
+        $this->originalName = $originalName;
+
+        return $this;
+    }
+
+
+    public function getExtension(): ?string
+    {
+        return $this->extension;
+    }
+
+    public function setExtension(?string $extension): static
+    {
+        $this->extension = $extension;
 
         return $this;
     }
@@ -119,4 +106,10 @@ class File
 
         return $this;
     }
+
+    public function getPathFile(string $fileName): string
+    {
+        return '/user/files/'.$fileName;
+    }
+
 }
