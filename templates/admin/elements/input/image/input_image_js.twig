@@ -6,7 +6,7 @@
 
     $(document).on('change', '.file_input', function (){
         let imageBlock = $(this).data('image');
-        const url = "/admin/file/create";
+        const url = `{{ path('admin-file-create-json') }}`;
         let file = $(this)[0].files[0];
         let formData = new FormData();
         let ajax = new XMLHttpRequest();
