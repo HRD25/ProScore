@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\idTrait;
 use App\Entity\User\User;
 use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,10 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`group`')]
 class Group
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use idTrait;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'groups')]
     private Collection $Users;
@@ -30,11 +28,6 @@ class Group
     public function __construct()
     {
         $this->Users = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

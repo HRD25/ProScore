@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Traits\idTrait;
-use App\Entity\Traits\timesTrait;
+use App\Entity\Traits\timeTrait;
 use App\Entity\User\User;
 use App\Repository\FileRepository;
 use DateTime;
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class File
 {
    use idTrait;
-   use timesTrait;
+   use timeTrait;
 
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: User::class)]
     private Collection $users;
