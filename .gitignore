@@ -13,6 +13,9 @@
 .idea/**/shelf
 .idea/*
 
+# Public directories
+/public/user/*
+
 # Env
 .env.local
 .env.test
